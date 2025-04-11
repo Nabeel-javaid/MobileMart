@@ -1,6 +1,6 @@
 import { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowRight } from 'lucide-react';
 
 interface HeroSlide {
   id: number;
@@ -61,19 +61,23 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
     return null;
   }
   
-  // Variants for smoother animations
+  // Enhanced animations
   const slideVariants = {
-    enter: { opacity: 0, scale: 1.05 },
+    enter: { opacity: 0, scale: 1.08, filter: 'brightness(0.8)' },
     center: { 
       opacity: 1, 
       scale: 1,
+      filter: 'brightness(1)',
       transition: {
-        opacity: { duration: 0.7 },
-        scale: { duration: 1.2 }
+        opacity: { duration: 0.8, ease: "easeOut" },
+        scale: { duration: 1.4, ease: "easeOut" },
+        filter: { duration: 1.2 }
       }
     },
     exit: { 
       opacity: 0,
+      scale: 0.92,
+      filter: 'brightness(0.8)',
       transition: { duration: 0.5 }
     }
   };
@@ -83,18 +87,18 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
     visible: { 
       opacity: 1,
       transition: {
-        staggerChildren: 0.2,
-        delayChildren: 0.3
+        staggerChildren: 0.25,
+        delayChildren: 0.5
       }
     }
   };
   
   const itemVariants = {
-    hidden: { opacity: 0, y: 30 },
+    hidden: { opacity: 0, y: 40 },
     visible: { 
       opacity: 1, 
       y: 0,
-      transition: { duration: 0.8, ease: "easeOut" }
+      transition: { duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }
     }
   };
 
@@ -223,9 +227,12 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
         ))}
       </AnimatePresence>
       
-      {/* Enhanced Slider Controls */}
+      {/* Stylish background pattern - add this */}
+      <div className="absolute inset-0 z-0 opacity-20 pointer-events-none bg-grid-pattern" />
+      
+      {/* Enhanced slide indicators */}
       <motion.div 
-        className="absolute bottom-8 left-0 right-0 flex justify-center space-x-4 z-10"
+        className="absolute bottom-10 left-0 right-0 flex justify-center space-x-5 z-20"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.8, duration: 0.5 }}
@@ -235,11 +242,11 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
             key={index}
             className={`relative h-3 rounded-full transition-all duration-500 overflow-hidden ${
               index === currentSlide 
-              ? 'bg-primary w-12' 
+              ? 'bg-primary w-14 shadow-lg shadow-primary/30' 
               : 'bg-white/50 w-3 hover:bg-white/70'
             }`}
             onClick={() => goToSlide(index)}
-            whileHover={{ scale: 1.2 }}
+            whileHover={{ scale: 1.3 }}
             whileTap={{ scale: 0.9 }}
             aria-label={`Go to slide ${index + 1}`}
           >
@@ -248,7 +255,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                 className="absolute top-0 left-0 bottom-0 bg-white/30" 
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
-                transition={{ duration: 5, ease: "linear" }}
+                transition={{ duration: 7, ease: "linear" }}
               />
             )}
           </motion.button>

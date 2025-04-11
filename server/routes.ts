@@ -88,12 +88,12 @@ export async function registerRoutes(app: Express): Promise<Server> {
     try {
       const data = insertSubscriberSchema.parse(req.body);
       const now = new Date().toISOString();
-      
+
       const subscriber = await storage.createSubscriber({
         ...data,
         subscribedAt: now
       });
-      
+
       res.status(201).json(subscriber);
     } catch (error) {
       if (error instanceof ZodError) {
@@ -149,7 +149,7 @@ async function initializeProducts() {
       description: "6.3\" OLED Display, 12GB RAM, 128GB Storage",
       category: "mobile",
       price: "749",
-      imageUrl: "https://images.unsplash.com/photo-1550367083-9fa5411cb8af?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
+      imageUrl: "https://images.unsplash.com/photo-1598327105666-5b89351aff97?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80",
       features: ["processor:Google Tensor", "camera:48MP Camera", "battery:4700mAh Battery", "storage:128GB Storage"],
       rating: "5.0",
       reviewCount: 52,

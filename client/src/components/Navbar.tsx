@@ -123,11 +123,16 @@ export default function Navbar() {
 
   return (
     <>
-      <header className={`sticky top-0 z-40 w-full ${
-        isScrolled 
-          ? 'bg-white/95 backdrop-blur-sm shadow-md py-2' 
-          : 'bg-white shadow-md py-3'
-        } transition-all duration-300`}>
+      <motion.header 
+        className={`sticky top-0 z-40 w-full ${
+          isScrolled 
+            ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' 
+            : 'bg-white py-3'
+        }`}
+        initial={{ y: -100 }}
+        animate={{ y: 0 }}
+        transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+      >
         {/* Navbar */}
         <nav className="container mx-auto px-4 flex justify-between items-center">
           {/* Logo */}
@@ -377,7 +382,17 @@ export default function Navbar() {
             </motion.div>
           )}
         </AnimatePresence>
-      </header>
+        
+        {/* Add a progress bar that shows scroll position */}
+        {isScrolled && (
+          <motion.div 
+            className="absolute bottom-0 left-0 h-[2px] bg-primary" 
+            initial={{ width: "0%" }}
+            animate={{ width: `${(window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100}%` }}
+            transition={{ duration: 0.1 }}
+          />
+        )}
+      </motion.header>
       
       {/* Auth Modal */}
       <AuthModal 
