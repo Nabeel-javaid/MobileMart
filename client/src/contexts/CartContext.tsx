@@ -1,6 +1,7 @@
 import { createContext, useContext, useState, useEffect } from 'react';
 import { Product } from '@shared/schema';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from './AuthContext';
 
 interface CartItem extends Product {
   quantity: number;
@@ -36,23 +37,39 @@ export const CartProvider = ({ children }: { children: React.ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>([]);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const { toast } = useToast();
+  const { user } = useAuth();
   
-  // Load cart from localStorage on initial render
+  // Cart keys are user-specific, using unique keys for each user
+  const getCartKey = () => {
+    return user ? `cart_${user.uid}` : 'cart_guest';
+  };
+  
+  // Load cart from localStorage on initial render or when user changes
   useEffect(() => {
-    const savedCart = localStorage.getItem('cart');
-    if (savedCart) {
-      try {
-        setCartItems(JSON.parse(savedCart));
-      } catch (error) {
-        console.error('Error parsing cart from localStorage:', error);
+    const loadCart = () => {
+      const cartKey = getCartKey();
+      const savedCart = localStorage.getItem(cartKey);
+      if (savedCart) {
+        try {
+          setCartItems(JSON.parse(savedCart));
+        } catch (error) {
+          console.error('Error parsing cart from localStorage:', error);
+          setCartItems([]);
+        }
+      } else {
+        // Clear cart if no saved cart exists for this user
+        setCartItems([]);
       }
-    }
-  }, []);
+    };
+    
+    loadCart();
+  }, [user]); // Re-run when user changes
   
   // Save cart to localStorage whenever it changes
   useEffect(() => {
-    localStorage.setItem('cart', JSON.stringify(cartItems));
-  }, [cartItems]);
+    const cartKey = getCartKey();
+    localStorage.setItem(cartKey, JSON.stringify(cartItems));
+  }, [cartItems, user]);
   
   const addToCart = (product: Product) => {
     setCartItems(prevItems => {

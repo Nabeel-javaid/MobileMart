@@ -1,6 +1,7 @@
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, ShoppingCart, Trash2, Plus, Minus, ArrowRight } from 'lucide-react';
+import { X, ShoppingCart, Trash2, Plus, Minus, ArrowRight, User } from 'lucide-react';
 import { useCart } from '@/contexts/CartContext';
+import { useAuth } from '@/contexts/AuthContext';
 
 export default function CartSidebar() {
   const { 
@@ -11,6 +12,8 @@ export default function CartSidebar() {
     isCartOpen, 
     toggleCart 
   } = useCart();
+  
+  const { user } = useAuth();
 
   return (
     <>
@@ -35,21 +38,35 @@ export default function CartSidebar() {
               transition={{ type: 'spring', damping: 25, stiffness: 300 }}
             >
               {/* Header */}
-              <div className="p-6 border-b flex justify-between items-center">
-                <div className="flex items-center gap-2">
-                  <ShoppingCart className="h-5 w-5 text-primary" />
-                  <h2 className="text-xl font-montserrat font-semibold">Your Cart</h2>
-                  <span className="text-sm px-2 py-1 bg-slate-100 rounded-full">
-                    {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}
+              <div className="p-6 border-b">
+                <div className="flex justify-between items-center mb-3">
+                  <div className="flex items-center gap-2">
+                    <ShoppingCart className="h-5 w-5 text-primary" />
+                    <h2 className="text-xl font-montserrat font-semibold">Your Cart</h2>
+                    <span className="text-sm px-2 py-1 bg-slate-100 rounded-full">
+                      {cartItems.length} {cartItems.length === 1 ? 'item' : 'items'}
+                    </span>
+                  </div>
+                  <button 
+                    onClick={toggleCart}
+                    className="p-2 hover:bg-slate-100 rounded-full transition-colors"
+                    aria-label="Close cart"
+                  >
+                    <X className="h-5 w-5" />
+                  </button>
+                </div>
+                
+                {/* User info */}
+                <div className="flex items-center text-sm text-slate-500 bg-slate-50 p-2 rounded-md">
+                  <User className="h-4 w-4 mr-2" />
+                  <span>
+                    {user ? (
+                      <>Signed in as <span className="font-medium">{user.displayName || user.email}</span></>
+                    ) : (
+                      <>Shopping as <span className="font-medium">Guest</span></>
+                    )}
                   </span>
                 </div>
-                <button 
-                  onClick={toggleCart}
-                  className="p-2 hover:bg-slate-100 rounded-full transition-colors"
-                  aria-label="Close cart"
-                >
-                  <X className="h-5 w-5" />
-                </button>
               </div>
               
               {/* Cart Items */}
@@ -123,22 +140,32 @@ export default function CartSidebar() {
                   </AnimatePresence>
                 </div>
               ) : (
-                <div className="flex-1 flex flex-col items-center justify-center">
+                <div className="flex-1 flex flex-col items-center justify-center p-6">
                   <div className="w-24 h-24 rounded-full bg-slate-100 flex items-center justify-center mb-4">
                     <ShoppingCart className="h-10 w-10 text-slate-400" />
                   </div>
                   <h3 className="text-xl font-medium text-slate-800 mb-2">Your cart is empty</h3>
-                  <p className="text-slate-500 text-center mb-6 max-w-xs">
-                    Looks like you haven't added any products to your cart yet.
-                  </p>
-                  <motion.button 
-                    className="inline-flex items-center text-primary font-medium hover:underline"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    onClick={toggleCart}
-                  >
-                    Continue Shopping
-                  </motion.button>
+                  
+                  {user ? (
+                    <p className="text-slate-500 text-center mb-6 max-w-xs">
+                      Hi {user.displayName || user.email?.split('@')[0] || 'there'}! Your personal shopping cart is ready for you to add some amazing products.
+                    </p>
+                  ) : (
+                    <p className="text-slate-500 text-center mb-6 max-w-xs">
+                      Looks like you haven't added any products to your cart yet. Sign in to keep your cart items saved across sessions.
+                    </p>
+                  )}
+                  
+                  <div className="flex flex-col sm:flex-row gap-3">
+                    <motion.button 
+                      className="inline-flex items-center text-primary font-medium hover:underline"
+                      whileHover={{ scale: 1.05 }}
+                      whileTap={{ scale: 0.95 }}
+                      onClick={toggleCart}
+                    >
+                      Continue Shopping
+                    </motion.button>
+                  </div>
                 </div>
               )}
               
