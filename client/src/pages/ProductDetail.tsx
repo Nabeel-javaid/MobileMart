@@ -22,6 +22,7 @@ import {
 import { Product } from '@shared/schema';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
+import Navbar from '@/components/Navbar';
 
 export default function ProductDetail() {
   const [_, params] = useRoute('/product/:id');
@@ -116,8 +117,16 @@ export default function ProductDetail() {
   // Format price with commas
   const formattedPrice = parseFloat(product.price).toLocaleString();
   
+  // Scroll to top on page load
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="bg-slate-50">
+      {/* Navbar */}
+      <Navbar />
+      
       {/* Back navigation */}
       <div className="bg-white border-b">
         <div className="container mx-auto px-4 py-4">
@@ -612,41 +621,49 @@ export default function ProductDetail() {
         <div className="mt-12">
           <h2 className="text-2xl font-bold mb-6">You might also like</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[1, 2, 3, 4].map((index) => (
-              <motion.div 
-                key={index}
-                className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow"
-                whileHover={{ y: -5 }}
-              >
-                <div className="aspect-square bg-slate-100 overflow-hidden">
-                  <img
-                    src={`https://picsum.photos/seed/related-${index}/400/400`}
-                    alt={`Related product ${index}`}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-4">
-                  <h3 className="font-medium mb-1 truncate">Related Product {index}</h3>
-                  <div className="flex items-center mb-2">
-                    <div className="flex">
-                      {[1, 2, 3, 4, 5].map((star) => (
-                        <Star
-                          key={star}
-                          className={`h-3 w-3 ${
-                            star <= 4
-                              ? 'text-yellow-400 fill-yellow-400'
-                              : 'text-slate-300'
-                          }`}
-                        />
-                      ))}
-                    </div>
-                    <span className="ml-1 text-xs text-slate-500">
-                      (24)
-                    </span>
+            {products?.filter(p => p.id !== productId).slice(0, 4).map((relatedProduct) => (
+              <Link href={`/product/${relatedProduct.id}`} key={relatedProduct.id}>
+                <motion.div 
+                  className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
+                  whileHover={{ y: -5 }}
+                  onClick={() => {
+                    // Force a page reload with the new product
+                    setTimeout(() => {
+                      window.scrollTo(0, 0);
+                    }, 100);
+                  }}
+                >
+                  <div className="aspect-square bg-slate-100 overflow-hidden">
+                    <img
+                      src={relatedProduct.imageUrl}
+                      alt={relatedProduct.name}
+                      className="w-full h-full object-cover transition-transform hover:scale-110 duration-500"
+                    />
                   </div>
-                  <div className="font-bold">${(499 * index).toLocaleString()}</div>
-                </div>
-              </motion.div>
+                  <div className="p-4">
+                    <h3 className="font-medium mb-1 truncate">{relatedProduct.name}</h3>
+                    <div className="flex items-center mb-2">
+                      <div className="flex">
+                        {[1, 2, 3, 4, 5].map((star) => {
+                          const rating = relatedProduct.rating ? parseFloat(relatedProduct.rating.toString()) : 4;
+                          return (
+                            <Star
+                              key={star}
+                              className={`h-3 w-3 ${
+                                star <= rating ? 'text-yellow-400 fill-yellow-400' : 'text-slate-300'
+                              }`}
+                            />
+                          );
+                        })}
+                      </div>
+                      <span className="ml-1 text-xs text-slate-500">
+                        ({relatedProduct.reviewCount || 0})
+                      </span>
+                    </div>
+                    <div className="font-bold">${parseFloat(relatedProduct.price).toLocaleString()}</div>
+                  </div>
+                </motion.div>
+              </Link>
             ))}
           </div>
         </div>
