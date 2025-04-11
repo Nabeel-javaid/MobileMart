@@ -1,64 +1,66 @@
-import { initializeApp } from "firebase/app";
+import { initializeApp } from 'firebase/app';
 import { 
   getAuth, 
   signInWithEmailAndPassword, 
   createUserWithEmailAndPassword, 
-  signOut, 
-  onAuthStateChanged,
+  updateProfile, 
+  onAuthStateChanged, 
+  signOut,
   GoogleAuthProvider,
   signInWithPopup,
-  updateProfile,
   User
-} from "firebase/auth";
+} from 'firebase/auth';
 
+// Firebase configuration using environment variables
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
   authDomain: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
   projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
   storageBucket: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.appspot.com`,
+  messagingSenderId: '',
   appId: import.meta.env.VITE_FIREBASE_APP_ID,
 };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
-// Authentication
 export const auth = getAuth(app);
 export const googleProvider = new GoogleAuthProvider();
 
-// Sign in with email and password
+// Email and password authentication
 export const signInWithEmail = async (email: string, password: string) => {
   try {
-    const userCredential = await signInWithEmailAndPassword(auth, email, password);
-    return { user: userCredential.user, error: null };
+    const result = await signInWithEmailAndPassword(auth, email, password);
+    return result.user;
   } catch (error) {
-    return { user: null, error };
+    console.error('Error signing in with email:', error);
+    throw error;
   }
 };
 
-// Sign up with email and password
 export const signUpWithEmail = async (email: string, password: string, displayName: string) => {
   try {
-    const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    const result = await createUserWithEmailAndPassword(auth, email, password);
     
-    // Update profile with display name
-    if (userCredential.user) {
-      await updateProfile(userCredential.user, { displayName });
+    // Update the user's profile with the provided display name
+    if (result.user) {
+      await updateProfile(result.user, { displayName });
     }
     
-    return { user: userCredential.user, error: null };
+    return result.user;
   } catch (error) {
-    return { user: null, error };
+    console.error('Error signing up with email:', error);
+    throw error;
   }
 };
 
-// Sign in with Google
+// Google authentication
 export const signInWithGoogle = async () => {
   try {
     const result = await signInWithPopup(auth, googleProvider);
-    return { user: result.user, error: null };
+    return result.user;
   } catch (error) {
-    return { user: null, error };
+    console.error('Error signing in with Google:', error);
+    throw error;
   }
 };
 
@@ -66,13 +68,13 @@ export const signInWithGoogle = async () => {
 export const signOutUser = async () => {
   try {
     await signOut(auth);
-    return { error: null };
   } catch (error) {
-    return { error };
+    console.error('Error signing out:', error);
+    throw error;
   }
 };
 
-// Auth state listener
+// Auth state observer
 export const onAuthStateChange = (callback: (user: User | null) => void) => {
   return onAuthStateChanged(auth, callback);
 };
