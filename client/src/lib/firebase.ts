@@ -13,12 +13,13 @@ import {
 
 // Firebase configuration using environment variables
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
-  authDomain: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.firebaseapp.com`,
-  projectId: import.meta.env.VITE_FIREBASE_PROJECT_ID,
-  storageBucket: `${import.meta.env.VITE_FIREBASE_PROJECT_ID}.appspot.com`,
-  messagingSenderId: '',
-  appId: import.meta.env.VITE_FIREBASE_APP_ID,
+  apiKey: "AIzaSyBJDs6jy7NnSg9d3I5l0Pg-RDM2alztUIQ",
+  authDomain: "mangat-friend.firebaseapp.com",
+  projectId: "mangat-friend",
+  storageBucket: "mangat-friend.firebasestorage.app",
+  messagingSenderId: "118999499620",
+  appId: "1:118999499620:web:3a7f0ee4c2c497eff4b071",
+  measurementId: "G-JMG0BMDXKM"
 };
 
 // Initialize Firebase
