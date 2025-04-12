@@ -56,17 +56,15 @@ export default function ProductCard({ product, variant = 'light' }: ProductCardP
         type: "spring",
         stiffness: 100,
         damping: 15,
-        duration: 0.5,
-        ease: "easeOut"
+        duration: 0.1
       }
     },
     hover: {
-      y: -10,
+      y: -5,
       boxShadow: "0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)",
       transition: {
-        type: "spring",
-        stiffness: 400,
-        damping: 15
+        duration: 0.3,
+        type: "tween"
       }
     }
   };
@@ -78,16 +76,14 @@ export default function ProductCard({ product, variant = 'light' }: ProductCardP
       opacity: 1,
       scale: 1,
       transition: {
-        delay: 0.2,
-        duration: 0.3,
-        ease: "easeOut"
+        delay: 0,
+        duration: 0.1
       }
     },
     hover: {
       scale: 1.1,
       transition: {
-        duration: 0.2,
-        ease: "easeOut"
+        duration: 0.3
       }
     },
     tap: {
@@ -97,49 +93,39 @@ export default function ProductCard({ product, variant = 'light' }: ProductCardP
 
   return (
     <Link href={`/product/${product.id}`}>
-      <motion.div
-        className={`rounded-xl overflow-hidden transition-all duration-300 h-full flex flex-col ${bgColor}`}
-        variants={cardVariants}
-        initial="hidden"
-        whileInView="visible"
-        whileHover="hover"
-        viewport={{ once: true, margin: "-50px" }}
+      <div
+        className={`rounded-xl overflow-hidden h-full flex flex-col ${bgColor} hover:shadow-xl hover:-translate-y-1`}
+        style={{ transition: 'transform 0.3s, box-shadow 0.3s' }}
       >
         {/* Image container with zoom effect */}
         <div className="relative overflow-hidden aspect-square">
-          <motion.img
+          <img
             src={product.imageUrl}
             alt={product.name}
-            className="w-full h-full object-cover"
-            whileHover={{ scale: 1.15 }}
-            transition={{ duration: 0.7 }}
+            className="w-full h-full object-cover hover:scale-105"
+            style={{ transition: 'transform 0.3s' }}
           />
 
           {/* Stylish overlay that appears on hover */}
-          <motion.div
-            className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 flex items-end"
-            whileHover={{ opacity: 1 }}
+          <div
+            className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 flex items-end"
+            style={{ transition: 'opacity 0.3s' }}
           >
             <div className="p-4 w-full">
-              <motion.button
-                className="bg-white w-full py-2 rounded-full text-primary font-medium flex items-center justify-center"
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
+              <button
+                className="bg-white w-full py-2 rounded-full text-primary font-medium flex items-center justify-center hover:bg-gray-100"
+                style={{ transition: 'background-color 0.3s' }}
                 onClick={handleAddToCart}
-                initial={{ opacity: 0, y: 20 }}
-                whileHover={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.2 }}
               >
                 <ShoppingCart className="h-4 w-4 mr-2" /> Add to Cart
-              </motion.button>
+              </button>
             </div>
-          </motion.div>
-
-          {/* Rest of your product card with enhanced animations */}
+          </div>
         </div>
 
         <div className="p-6">
-          <h3 className="font-montserrat font-semibold text-lg mb-2 truncate group-hover:text-primary transition-colors">
+          <h3 className="font-montserrat font-semibold text-lg mb-2 truncate hover:text-primary"
+            style={{ transition: 'color 0.3s' }}>
             {product.name}
           </h3>
 
@@ -169,39 +155,32 @@ export default function ProductCard({ product, variant = 'light' }: ProductCardP
             <div>
               <span className="font-montserrat font-bold text-lg">${parseFloat(product.price).toFixed(2)}</span>
               {product.originalPrice && (
-                <motion.span
+                <span
                   className="text-slate-500 line-through text-sm ml-2"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
                 >
                   ${parseFloat(product.originalPrice.toString()).toFixed(2)}
-                </motion.span>
+                </span>
               )}
               {discount && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  transition={{ delay: 0.3 }}
+                <div
                   className="inline-block ml-2"
                 >
                   <Badge variant="success">Save {discount}%</Badge>
-                </motion.div>
+                </div>
               )}
             </div>
 
-            <motion.button
-              className={`${variant === 'light' ? 'bg-slate-100' : 'bg-white'} hover:bg-primary text-slate-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center transition-colors`}
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.9 }}
+            <button
+              className={`${variant === 'light' ? 'bg-slate-100' : 'bg-white'} hover:bg-primary text-slate-700 hover:text-white w-10 h-10 rounded-full flex items-center justify-center`}
+              style={{ transition: 'background-color 0.3s, color 0.3s' }}
               onClick={handleAddToCart}
               aria-label="Add to cart"
             >
               <ShoppingCart className="h-5 w-5" />
-            </motion.button>
+            </button>
           </div>
         </div>
-      </motion.div>
+      </div>
     </Link>
   );
 }

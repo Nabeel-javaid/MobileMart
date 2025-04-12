@@ -1,11 +1,11 @@
 import { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Laptop, 
-  Search, 
-  ShoppingCart, 
-  User, 
-  Menu, 
+import {
+  Laptop,
+  Search,
+  ShoppingCart,
+  User,
+  Menu,
   X,
   Heart,
   LogOut,
@@ -25,11 +25,11 @@ export default function Navbar() {
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [authModalView, setAuthModalView] = useState<'login' | 'signup'>('login');
-  
+
   const { user } = useAuth();
   const { cartItems, cartCount, toggleCart } = useCart();
   const { toast } = useToast();
-  
+
   // Check scroll position
   useEffect(() => {
     const handleScroll = () => {
@@ -39,35 +39,35 @@ export default function Navbar() {
         setIsScrolled(false);
       }
     };
-    
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
+
   // Close menus when clicking outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
       const target = e.target as HTMLElement;
-      
+
       // Handle mobile menu
-      if (isMobileMenuOpen && 
-          !target.closest('#mobile-menu') && 
-          !target.closest('#mobile-menu-btn')) {
+      if (isMobileMenuOpen &&
+        !target.closest('#mobile-menu') &&
+        !target.closest('#mobile-menu-btn')) {
         setIsMobileMenuOpen(false);
       }
-      
+
       // Handle user dropdown menu
-      if (isUserMenuOpen && 
-          !target.closest('#user-menu') && 
-          !target.closest('#user-menu-btn')) {
+      if (isUserMenuOpen &&
+        !target.closest('#user-menu') &&
+        !target.closest('#user-menu-btn')) {
         setIsUserMenuOpen(false);
       }
     };
-    
+
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [isMobileMenuOpen, isUserMenuOpen]);
-  
+
   // Close menus when resizing
   useEffect(() => {
     const handleResize = () => {
@@ -77,11 +77,11 @@ export default function Navbar() {
         }
       }
     };
-    
+
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, [isMobileMenuOpen]);
-  
+
   const handleSignOut = async () => {
     try {
       await signOutUser();
@@ -99,19 +99,19 @@ export default function Navbar() {
       });
     }
   };
-  
+
   const openLoginModal = () => {
     setAuthModalView('login');
     setIsAuthModalOpen(true);
     setIsMobileMenuOpen(false);
   };
-  
+
   const openSignupModal = () => {
     setAuthModalView('signup');
     setIsAuthModalOpen(true);
     setIsMobileMenuOpen(false);
   };
-  
+
   // Navigation links
   const navLinks = [
     { name: 'Home', href: '/' },
@@ -123,12 +123,11 @@ export default function Navbar() {
 
   return (
     <>
-      <motion.header 
-        className={`sticky top-0 z-40 w-full ${
-          isScrolled 
-            ? 'bg-white/95 backdrop-blur-md shadow-lg py-2' 
-            : 'bg-white py-3'
-        }`}
+      <motion.header
+        className={`sticky top-0 z-40 w-full ${isScrolled
+          ? 'bg-white/95 backdrop-blur-md shadow-lg py-2'
+          : 'bg-white py-3'
+          }`}
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ type: 'spring', stiffness: 300, damping: 30 }}
@@ -137,14 +136,14 @@ export default function Navbar() {
         <nav className="container mx-auto px-4 flex justify-between items-center">
           {/* Logo */}
           <Link href="/" className="flex items-center space-x-1">
-            <motion.span 
+            <motion.span
               className="text-primary text-3xl"
               initial={{ rotate: 0 }}
               whileHover={{ rotate: [-10, 10, -5, 5, 0], transition: { duration: 0.5 } }}
             >
               <Laptop />
             </motion.span>
-            <motion.h1 
+            <motion.h1
               className="text-2xl font-montserrat font-bold"
               whileHover={{ scale: 1.05 }}
               transition={{ type: 'spring', stiffness: 400 }}
@@ -152,19 +151,19 @@ export default function Navbar() {
               Tech<span className="text-primary">Treasure</span>
             </motion.h1>
           </Link>
-          
+
           {/* Desktop Navigation */}
           <div className="hidden md:flex items-center space-x-8">
             {navLinks.map((link) => (
-              <motion.a 
+              <motion.a
                 key={link.name}
-                href={link.href} 
+                href={link.href}
                 className="text-slate-700 font-medium hover:text-primary transition-colors relative"
                 whileHover={{ scale: 1.05 }}
                 transition={{ type: 'spring', stiffness: 400 }}
               >
                 {link.name}
-                <motion.span 
+                <motion.span
                   className="absolute bottom-0 left-0 w-0 h-0.5 bg-primary"
                   initial={{ width: 0 }}
                   whileHover={{ width: '100%' }}
@@ -173,26 +172,26 @@ export default function Navbar() {
               </motion.a>
             ))}
           </div>
-          
+
           {/* Action Icons */}
           <div className="flex items-center space-x-5">
-            <motion.button 
+            <motion.button
               className="hidden md:flex items-center justify-center text-slate-700 hover:text-primary transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
               <Search className="h-5 w-5" />
             </motion.button>
-            
-            <motion.button 
+
+            <motion.button
               className="hidden md:flex items-center justify-center text-slate-700 hover:text-primary transition-colors"
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.95 }}
             >
               <Heart className="h-5 w-5" />
             </motion.button>
-            
-            <motion.button 
+
+            <motion.button
               className="relative flex items-center justify-center text-slate-700 hover:text-primary transition-colors"
               onClick={toggleCart}
               whileHover={{ scale: 1.1 }}
@@ -201,19 +200,21 @@ export default function Navbar() {
             >
               <ShoppingCart className="h-5 w-5" />
               {cartCount > 0 && (
-                <motion.span 
+                <motion.div
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
-                  className="absolute -top-2 -right-2 bg-secondary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                  className="absolute -top-2 -right-2 flex items-center justify-center"
                 >
-                  {cartCount > 99 ? '99+' : cartCount}
-                </motion.span>
+                  <span className="flex items-center justify-center min-w-[18px] h-[18px] px-[5px] bg-red-600 text-[10px] font-bold text-white rounded-full shadow-sm">
+                    {cartCount > 9 ? '9+' : cartCount}
+                  </span>
+                </motion.div>
               )}
             </motion.button>
-            
+
             {user ? (
               <div className="relative">
-                <motion.button 
+                <motion.button
                   id="user-menu-btn"
                   className="hidden md:flex items-center justify-center space-x-2 text-slate-700 hover:text-primary transition-colors bg-slate-50 px-3 py-1.5 rounded-full"
                   onClick={() => setIsUserMenuOpen(!isUserMenuOpen)}
@@ -221,9 +222,9 @@ export default function Navbar() {
                   whileTap={{ scale: 0.95 }}
                 >
                   {user.photoURL ? (
-                    <img 
-                      src={user.photoURL} 
-                      alt={user.displayName || 'User'} 
+                    <img
+                      src={user.photoURL}
+                      alt={user.displayName || 'User'}
                       className="w-7 h-7 rounded-full object-cover border-2 border-primary/20"
                     />
                   ) : (
@@ -235,11 +236,11 @@ export default function Navbar() {
                     {user.displayName || (user.email ? user.email.split('@')[0] : 'User')}
                   </span>
                 </motion.button>
-                
+
                 {/* User Dropdown Menu */}
                 <AnimatePresence>
                   {isUserMenuOpen && (
-                    <motion.div 
+                    <motion.div
                       id="user-menu"
                       className="absolute right-0 mt-2 w-48 bg-white shadow-lg rounded-lg py-2 z-50"
                       initial={{ opacity: 0, y: -10 }}
@@ -252,7 +253,7 @@ export default function Navbar() {
                         <p className="text-xs text-slate-500 truncate">{user.email}</p>
                       </div>
                       <div className="pt-2">
-                        <button 
+                        <button
                           className="flex items-center w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition-colors"
                           onClick={handleSignOut}
                         >
@@ -265,7 +266,7 @@ export default function Navbar() {
                 </AnimatePresence>
               </div>
             ) : (
-              <motion.button 
+              <motion.button
                 className="hidden md:flex items-center justify-center bg-primary hover:bg-primary-dark text-white px-4 py-2 rounded-full font-medium transition-colors"
                 onClick={openLoginModal}
                 whileHover={{ scale: 1.05 }}
@@ -275,8 +276,8 @@ export default function Navbar() {
                 Sign In
               </motion.button>
             )}
-            
-            <motion.button 
+
+            <motion.button
               id="mobile-menu-btn"
               className="md:hidden text-slate-700"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
@@ -287,11 +288,11 @@ export default function Navbar() {
             </motion.button>
           </div>
         </nav>
-        
+
         {/* Mobile Menu */}
         <AnimatePresence>
           {isMobileMenuOpen && (
-            <motion.div 
+            <motion.div
               id="mobile-menu"
               className="md:hidden bg-white absolute w-full left-0 shadow-md z-50"
               initial={{ opacity: 0, height: 0 }}
@@ -303,9 +304,9 @@ export default function Navbar() {
                 {user && (
                   <div className="flex items-center space-x-3 pb-4 border-b">
                     {user.photoURL ? (
-                      <img 
-                        src={user.photoURL} 
-                        alt={user.displayName || 'User'} 
+                      <img
+                        src={user.photoURL}
+                        alt={user.displayName || 'User'}
                         className="w-10 h-10 rounded-full object-cover border-2 border-primary/20"
                       />
                     ) : (
@@ -319,20 +320,20 @@ export default function Navbar() {
                     </div>
                   </div>
                 )}
-                
+
                 {navLinks.map((link) => (
-                  <a 
+                  <a
                     key={link.name}
-                    href={link.href} 
+                    href={link.href}
                     className="text-slate-700 py-2 font-medium hover:text-primary transition-colors"
                     onClick={() => setIsMobileMenuOpen(false)}
                   >
                     {link.name}
                   </a>
                 ))}
-                
+
                 <div className="flex flex-col space-y-4 pt-2 border-t">
-                  <button 
+                  <button
                     className="text-slate-700 hover:text-primary transition-colors flex items-center py-2"
                     onClick={() => {
                       setIsMobileMenuOpen(false);
@@ -340,8 +341,8 @@ export default function Navbar() {
                   >
                     <Search className="h-5 w-5 mr-3" /> Search
                   </button>
-                  
-                  <button 
+
+                  <button
                     className="text-slate-700 hover:text-primary transition-colors flex items-center py-2"
                     onClick={() => {
                       toggleCart();
@@ -350,9 +351,9 @@ export default function Navbar() {
                   >
                     <ShoppingCart className="h-5 w-5 mr-3" /> Cart {cartCount > 0 && `(${cartCount})`}
                   </button>
-                  
+
                   {user ? (
-                    <button 
+                    <button
                       className="text-red-600 hover:text-red-700 transition-colors flex items-center py-2"
                       onClick={() => {
                         handleSignOut();
@@ -363,13 +364,13 @@ export default function Navbar() {
                     </button>
                   ) : (
                     <div className="flex flex-col space-y-2">
-                      <button 
+                      <button
                         className="w-full bg-primary hover:bg-primary-dark text-white py-2 rounded-full font-medium transition-colors"
                         onClick={openLoginModal}
                       >
                         Sign In
                       </button>
-                      <button 
+                      <button
                         className="w-full bg-transparent border border-primary text-primary hover:bg-primary/5 py-2 rounded-full font-medium transition-colors"
                         onClick={openSignupModal}
                       >
@@ -382,25 +383,25 @@ export default function Navbar() {
             </motion.div>
           )}
         </AnimatePresence>
-        
+
         {/* Add a progress bar that shows scroll position */}
         {isScrolled && (
-          <motion.div 
-            className="absolute bottom-0 left-0 h-[2px] bg-primary" 
+          <motion.div
+            className="absolute bottom-0 left-0 h-[2px] bg-primary"
             initial={{ width: "0%" }}
             animate={{ width: `${(window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100}%` }}
             transition={{ duration: 0.1 }}
           />
         )}
       </motion.header>
-      
+
       {/* Auth Modal */}
-      <AuthModal 
-        isOpen={isAuthModalOpen} 
-        onClose={() => setIsAuthModalOpen(false)} 
+      <AuthModal
+        isOpen={isAuthModalOpen}
+        onClose={() => setIsAuthModalOpen(false)}
         defaultView={authModalView}
       />
-      
+
       {/* Cart Sidebar */}
       <CartSidebar />
     </>

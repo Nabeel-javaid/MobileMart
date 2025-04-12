@@ -1,0 +1,402 @@
+{
+    "1": {
+        "retailers": [
+            {
+                "name": "TechTreasure",
+                "price": 999.99,
+                "rating": 4.8,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "Free AirPods with purchase"
+            },
+            {
+                "name": "TechGiant",
+                "price": 1049.99,
+                "rating": 4.7,
+                "inStock": true,
+                "delivery": "Free next-day delivery",
+                "warranty": "2 years",
+                "promotion": "10% cashback"
+            },
+            {
+                "name": "ElectroWorld",
+                "price": 979.99,
+                "rating": 4.5,
+                "inStock": true,
+                "delivery": "$10 standard delivery",
+                "warranty": "1 year",
+                "promotion": "Free screen protector"
+            },
+            {
+                "name": "MegaStore",
+                "price": 989.99,
+                "rating": 4.6,
+                "inStock": false,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "20% off accessories"
+            }
+        ]
+    },
+    "2": {
+        "retailers": [
+            {
+                "name": "TechTreasure",
+                "price": 1299.99,
+                "rating": 4.9,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "Free wireless charger"
+            },
+            {
+                "name": "TechGiant",
+                "price": 1349.99,
+                "rating": 4.8,
+                "inStock": true,
+                "delivery": "Free next-day delivery",
+                "warranty": "2 years",
+                "promotion": "15% cashback"
+            },
+            {
+                "name": "ElectroWorld",
+                "price": 1279.99,
+                "rating": 4.6,
+                "inStock": true,
+                "delivery": "$10 standard delivery",
+                "warranty": "1 year",
+                "promotion": "Free case"
+            },
+            {
+                "name": "MegaStore",
+                "price": 1309.99,
+                "rating": 4.7,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "25% off accessories"
+            }
+        ]
+    },
+    "3": {
+        "retailers": [
+            {
+                "name": "TechTreasure",
+                "price": 699.99,
+                "rating": 4.7,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "Free earbuds"
+            },
+            {
+                "name": "TechGiant",
+                "price": 729.99,
+                "rating": 4.6,
+                "inStock": true,
+                "delivery": "Free next-day delivery",
+                "warranty": "2 years",
+                "promotion": "5% cashback"
+            },
+            {
+                "name": "ElectroWorld",
+                "price": 689.99,
+                "rating": 4.4,
+                "inStock": false,
+                "delivery": "$10 standard delivery",
+                "warranty": "1 year",
+                "promotion": "Free power bank"
+            },
+            {
+                "name": "MegaStore",
+                "price": 709.99,
+                "rating": 4.5,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "15% off accessories"
+            }
+        ]
+    },
+    "4": {
+        "retailers": [
+            {
+                "name": "TechTreasure",
+                "price": 1799.99,
+                "rating": 4.9,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "2 years",
+                "promotion": "Free backpack"
+            },
+            {
+                "name": "TechGiant",
+                "price": 1849.99,
+                "rating": 4.8,
+                "inStock": true,
+                "delivery": "Free next-day delivery",
+                "warranty": "3 years",
+                "promotion": "20% cashback"
+            },
+            {
+                "name": "ElectroWorld",
+                "price": 1779.99,
+                "rating": 4.7,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "2 years",
+                "promotion": "Free Microsoft Office"
+            },
+            {
+                "name": "MegaStore",
+                "price": 1829.99,
+                "rating": 4.7,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "2 years",
+                "promotion": "30% off accessories"
+            }
+        ]
+    },
+    "5": {
+        "retailers": [
+            {
+                "name": "TechTreasure",
+                "price": 549.99,
+                "rating": 4.6,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "Free screen protector"
+            },
+            {
+                "name": "TechGiant",
+                "price": 579.99,
+                "rating": 4.5,
+                "inStock": true,
+                "delivery": "Free next-day delivery",
+                "warranty": "2 years",
+                "promotion": "5% cashback"
+            },
+            {
+                "name": "ElectroWorld",
+                "price": 539.99,
+                "rating": 4.3,
+                "inStock": true,
+                "delivery": "$5 standard delivery",
+                "warranty": "1 year",
+                "promotion": "Free earbuds"
+            },
+            {
+                "name": "MegaStore",
+                "price": 559.99,
+                "rating": 4.4,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "10% off accessories"
+            }
+        ]
+    },
+    "6": {
+        "retailers": [
+            {
+                "name": "TechTreasure",
+                "price": 899.99,
+                "rating": 4.7,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "Free phone case"
+            },
+            {
+                "name": "TechGiant",
+                "price": 929.99,
+                "rating": 4.6,
+                "inStock": true,
+                "delivery": "Free next-day delivery",
+                "warranty": "2 years",
+                "promotion": "8% cashback"
+            },
+            {
+                "name": "ElectroWorld",
+                "price": 879.99,
+                "rating": 4.4,
+                "inStock": true,
+                "delivery": "$8 standard delivery",
+                "warranty": "1 year",
+                "promotion": "Free screen protector"
+            },
+            {
+                "name": "MegaStore",
+                "price": 889.99,
+                "rating": 4.5,
+                "inStock": false,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "15% off accessories"
+            }
+        ]
+    },
+    "7": {
+        "retailers": [
+            {
+                "name": "TechTreasure",
+                "price": 1499.99,
+                "rating": 4.8,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "2 years",
+                "promotion": "Free laptop bag"
+            },
+            {
+                "name": "TechGiant",
+                "price": 1549.99,
+                "rating": 4.7,
+                "inStock": true,
+                "delivery": "Free next-day delivery",
+                "warranty": "3 years",
+                "promotion": "15% cashback"
+            },
+            {
+                "name": "ElectroWorld",
+                "price": 1479.99,
+                "rating": 4.5,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "2 years",
+                "promotion": "Free mouse"
+            },
+            {
+                "name": "MegaStore",
+                "price": 1509.99,
+                "rating": 4.6,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "2 years",
+                "promotion": "25% off accessories"
+            }
+        ]
+    },
+    "8": {
+        "retailers": [
+            {
+                "name": "TechTreasure",
+                "price": 399.99,
+                "rating": 4.5,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "Free earbuds"
+            },
+            {
+                "name": "TechGiant",
+                "price": 419.99,
+                "rating": 4.4,
+                "inStock": true,
+                "delivery": "Free next-day delivery",
+                "warranty": "2 years",
+                "promotion": "5% cashback"
+            },
+            {
+                "name": "ElectroWorld",
+                "price": 389.99,
+                "rating": 4.2,
+                "inStock": false,
+                "delivery": "$5 standard delivery",
+                "warranty": "1 year",
+                "promotion": "Free screen protector"
+            },
+            {
+                "name": "MegaStore",
+                "price": 409.99,
+                "rating": 4.3,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "10% off accessories"
+            }
+        ]
+    },
+    "9": {
+        "retailers": [
+            {
+                "name": "TechTreasure",
+                "price": 249.99,
+                "rating": 4.4,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "Free case"
+            },
+            {
+                "name": "TechGiant",
+                "price": 269.99,
+                "rating": 4.3,
+                "inStock": true,
+                "delivery": "$5 standard delivery",
+                "warranty": "1 year",
+                "promotion": "5% cashback"
+            },
+            {
+                "name": "ElectroWorld",
+                "price": 239.99,
+                "rating": 4.1,
+                "inStock": true,
+                "delivery": "$5 standard delivery",
+                "warranty": "1 year",
+                "promotion": "Free screen protector"
+            },
+            {
+                "name": "MegaStore",
+                "price": 255.99,
+                "rating": 4.2,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "1 year",
+                "promotion": "10% off accessories"
+            }
+        ]
+    },
+    "10": {
+        "retailers": [
+            {
+                "name": "TechTreasure",
+                "price": 1999.99,
+                "rating": 4.9,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "2 years",
+                "promotion": "Free gaming headset"
+            },
+            {
+                "name": "TechGiant",
+                "price": 2049.99,
+                "rating": 4.8,
+                "inStock": true,
+                "delivery": "Free next-day delivery",
+                "warranty": "3 years",
+                "promotion": "20% cashback"
+            },
+            {
+                "name": "ElectroWorld",
+                "price": 1979.99,
+                "rating": 4.7,
+                "inStock": true,
+                "delivery": "Free delivery",
+                "warranty": "2 years",
+                "promotion": "Free gaming mouse"
+            },
+            {
+                "name": "MegaStore",
+                "price": 2019.99,
+                "rating": 4.8,
+                "inStock": false,
+                "delivery": "Free delivery",
+                "warranty": "2 years",
+                "promotion": "30% off gaming accessories"
+            }
+        ]
+    }
+}

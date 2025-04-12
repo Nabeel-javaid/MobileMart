@@ -60,12 +60,12 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
   if (slides.length === 0) {
     return null;
   }
-  
+
   // Enhanced animations
   const slideVariants = {
     enter: { opacity: 0, scale: 1.08, filter: 'brightness(0.8)' },
-    center: { 
-      opacity: 1, 
+    center: {
+      opacity: 1,
       scale: 1,
       filter: 'brightness(1)',
       transition: {
@@ -74,17 +74,17 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
         filter: { duration: 1.2 }
       }
     },
-    exit: { 
+    exit: {
       opacity: 0,
       scale: 0.92,
       filter: 'brightness(0.8)',
       transition: { duration: 0.5 }
     }
   };
-  
+
   const contentVariants = {
     hidden: { opacity: 0 },
-    visible: { 
+    visible: {
       opacity: 1,
       transition: {
         staggerChildren: 0.25,
@@ -92,11 +92,11 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
       }
     }
   };
-  
+
   const itemVariants = {
     hidden: { opacity: 0, y: 40 },
-    visible: { 
-      opacity: 1, 
+    visible: {
+      opacity: 1,
       y: 0,
       transition: { duration: 0.9, ease: [0.25, 0.1, 0.25, 1] }
     }
@@ -117,7 +117,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
               exit="exit"
             >
               {/* Enhanced gradient overlay that won't fade text */}
-              <div 
+              <div
                 className="absolute inset-0 bg-gradient-to-r from-slate-900/90 via-slate-900/75 to-slate-900/60"
                 style={{
                   backdropFilter: 'brightness(0.9)',
@@ -125,9 +125,9 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   mixBlendMode: 'multiply'
                 }}
               >
-                <motion.div 
+                <motion.div
                   className="absolute inset-0 opacity-50"
-                  animate={{ 
+                  animate={{
                     backgroundPosition: ['0% 0%', '100% 100%'],
                   }}
                   transition={{
@@ -142,68 +142,68 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   }}
                 />
               </div>
-              
+
               <div className="container mx-auto px-4 h-full flex items-center relative z-10">
-                <motion.div 
-                  className="max-w-xl text-white"
+                <motion.div
+                  className="max-w-xl text-white pl-8"
                   variants={contentVariants}
                   initial="hidden"
                   animate="visible"
                 >
                   <motion.div className="relative">
-                    <motion.span 
+                    <motion.span
                       className="absolute -left-5 top-1/2 transform -translate-y-1/2 w-10 h-2 bg-primary rounded-full"
                       initial={{ width: 0, opacity: 0 }}
                       animate={{ width: 40, opacity: 1 }}
                       transition={{ delay: 0.2, duration: 0.5 }}
                     />
-                    <motion.h2 
+                    <motion.h2
                       className="text-4xl md:text-5xl lg:text-6xl font-montserrat font-bold mb-4 pl-8 relative"
                       variants={itemVariants}
                     >
                       {slide.title}
-                      
+
                       {/* Animated underline effect */}
-                      <motion.span 
-                        className="absolute bottom-0 left-8 h-1 bg-primary rounded-full" 
+                      <motion.span
+                        className="absolute bottom-0 left-8 h-1 bg-primary rounded-full"
                         initial={{ width: 0 }}
                         animate={{ width: "40%" }}
                         transition={{ delay: 0.7, duration: 0.8 }}
                       />
                     </motion.h2>
                   </motion.div>
-                  
-                  <motion.p 
+
+                  <motion.p
                     className="text-xl mb-8 text-white/90"
                     variants={itemVariants}
                   >
                     {slide.description}
                   </motion.p>
-                  
-                  <motion.div 
+
+                  <motion.div
                     className="flex flex-wrap gap-4"
                     variants={itemVariants}
                   >
-                    <motion.a 
-                      href={slide.primaryButtonLink} 
+                    <motion.a
+                      href={slide.primaryButtonLink}
                       className="bg-primary hover:bg-primary-dark text-white px-8 py-3 rounded-full font-medium transition-all duration-300 flex items-center justify-center relative overflow-hidden shadow-lg group"
-                      whileHover={{ 
+                      whileHover={{
                         scale: 1.05,
                         boxShadow: "0 10px 25px -5px rgba(59, 130, 246, 0.5)"
                       }}
                       whileTap={{ scale: 0.98 }}
                     >
                       <span className="relative z-10">{slide.primaryButtonText}</span>
-                      <motion.span 
+                      <motion.span
                         className="absolute inset-0 bg-gradient-to-r from-blue-600 to-blue-500 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
                         style={{ mixBlendMode: 'soft-light' }}
                       />
                     </motion.a>
-                    
-                    <motion.a 
-                      href={slide.secondaryButtonLink} 
+
+                    <motion.a
+                      href={slide.secondaryButtonLink}
                       className="bg-transparent border-2 border-white text-white px-8 py-3 rounded-full font-medium hover:bg-white hover:text-slate-800 transition-all duration-300 shadow-lg"
-                      whileHover={{ 
+                      whileHover={{
                         scale: 1.05,
                         boxShadow: "0 10px 25px -5px rgba(255, 255, 255, 0.2)"
                       }}
@@ -214,9 +214,9 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   </motion.div>
                 </motion.div>
               </div>
-              
+
               {/* Animated overlay effects */}
-              <motion.div 
+              <motion.div
                 className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-900/50 to-transparent pointer-events-none"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
@@ -226,12 +226,12 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
           )
         ))}
       </AnimatePresence>
-      
+
       {/* Stylish background pattern - add this */}
       <div className="absolute inset-0 z-0 opacity-20 pointer-events-none bg-grid-pattern" />
-      
+
       {/* Enhanced slide indicators */}
-      <motion.div 
+      <motion.div
         className="absolute bottom-10 left-0 right-0 flex justify-center space-x-5 z-20"
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
@@ -240,19 +240,18 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
         {slides.map((_, index) => (
           <motion.button
             key={index}
-            className={`relative h-3 rounded-full transition-all duration-500 overflow-hidden ${
-              index === currentSlide 
-              ? 'bg-primary w-14 shadow-lg shadow-primary/30' 
+            className={`relative h-3 rounded-full transition-all duration-500 overflow-hidden ${index === currentSlide
+              ? 'bg-primary w-14 shadow-lg shadow-primary/30'
               : 'bg-white/50 w-3 hover:bg-white/70'
-            }`}
+              }`}
             onClick={() => goToSlide(index)}
             whileHover={{ scale: 1.3 }}
             whileTap={{ scale: 0.9 }}
             aria-label={`Go to slide ${index + 1}`}
           >
             {index === currentSlide && (
-              <motion.span 
-                className="absolute top-0 left-0 bottom-0 bg-white/30" 
+              <motion.span
+                className="absolute top-0 left-0 bottom-0 bg-white/30"
                 initial={{ width: 0 }}
                 animate={{ width: "100%" }}
                 transition={{ duration: 7, ease: "linear" }}
@@ -261,36 +260,36 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
           </motion.button>
         ))}
       </motion.div>
-      
+
       {/* Enhanced navigation buttons */}
-      <motion.button 
+      <motion.button
         className="absolute left-6 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-slate-800/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-300 border border-white/10"
         onClick={goToPrev}
         aria-label="Previous slide"
         initial={{ opacity: 0, x: -20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.5 }}
-        whileHover={{ 
-          scale: 1.1, 
+        whileHover={{
+          scale: 1.1,
           backgroundColor: "rgba(59, 130, 246, 0.7)",
-          boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)" 
+          boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)"
         }}
         whileTap={{ scale: 0.95 }}
       >
         <ChevronLeft className="h-6 w-6" />
       </motion.button>
-      
-      <motion.button 
+
+      <motion.button
         className="absolute right-6 top-1/2 transform -translate-y-1/2 w-12 h-12 bg-slate-800/60 backdrop-blur-sm rounded-full flex items-center justify-center text-white transition-all duration-300 border border-white/10"
         onClick={goToNext}
         aria-label="Next slide"
         initial={{ opacity: 0, x: 20 }}
         animate={{ opacity: 1, x: 0 }}
         transition={{ delay: 0.5 }}
-        whileHover={{ 
-          scale: 1.1, 
+        whileHover={{
+          scale: 1.1,
           backgroundColor: "rgba(59, 130, 246, 0.7)",
-          boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)" 
+          boxShadow: "0 0 20px rgba(59, 130, 246, 0.3)"
         }}
         whileTap={{ scale: 0.95 }}
       >

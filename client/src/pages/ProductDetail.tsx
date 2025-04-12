@@ -17,13 +17,15 @@ import {
     Cpu,
     Battery,
     Camera,
-    Milestone
+    Milestone,
+    BarChart2
 } from 'lucide-react';
 import { Product } from '@shared/schema';
 import { useCart } from '@/contexts/CartContext';
 import { useToast } from '@/hooks/use-toast';
 import Navbar from '@/components/Navbar';
 import { Badge } from '@/components/ui/badge';
+import ProductComparison from '@/components/ProductComparison';
 
 export default function ProductDetail() {
     const [_, params] = useRoute('/product/:id');
@@ -32,6 +34,7 @@ export default function ProductDetail() {
     const [activeImage, setActiveImage] = useState(0);
     const [activeTab, setActiveTab] = useState('description');
     const [showAddedAnimation, setShowAddedAnimation] = useState(false);
+    const [showComparison, setShowComparison] = useState(false);
 
     const { addToCart } = useCart();
     const { toast } = useToast();
@@ -129,14 +132,21 @@ export default function ProductDetail() {
     const discount = getDiscountPercentage();
 
     // Scroll to top on page load
-    useEffect(() => {
-        window.scrollTo(0, 0);
-    }, []);
+    // useEffect(() => {
+    //     window.scrollTo(0, 0);
+    // }, []);
 
     return (
         <div className="bg-slate-50">
             {/* Navbar */}
             <Navbar />
+
+            {/* Comparison modal */}
+            <ProductComparison
+                productId={productId}
+                isOpen={showComparison}
+                onClose={() => setShowComparison(false)}
+            />
 
             {/* Back navigation */}
             <div className="bg-white border-b">
@@ -367,22 +377,16 @@ export default function ProductDetail() {
 
                                     <div className="flex gap-2">
                                         <motion.button
-                                            className="bg-slate-100 hover:bg-slate-200 p-3 rounded-lg flex items-center justify-center"
-                                            onClick={handleAddToWishlist}
+                                            className="bg-slate-100 hover:bg-slate-200 p-3 rounded-lg flex items-center justify-center relative group"
+                                            onClick={() => setShowComparison(true)}
                                             whileHover={{ scale: 1.05 }}
                                             whileTap={{ scale: 0.95 }}
-                                            aria-label="Add to wishlist"
+                                            aria-label="Compare prices"
                                         >
-                                            <Heart className="h-6 w-6" />
-                                        </motion.button>
-
-                                        <motion.button
-                                            className="bg-slate-100 hover:bg-slate-200 p-3 rounded-lg flex items-center justify-center"
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            aria-label="Share product"
-                                        >
-                                            <Share2 className="h-6 w-6" />
+                                            <BarChart2 className="h-6 w-6" />
+                                            <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                                                Compare prices
+                                            </div>
                                         </motion.button>
                                     </div>
                                 </div>
@@ -639,9 +643,9 @@ export default function ProductDetail() {
                                     whileHover={{ y: -5 }}
                                     onClick={() => {
                                         // Force a page reload with the new product
-                                        setTimeout(() => {
-                                            window.scrollTo(0, 0);
-                                        }, 100);
+                                        // setTimeout(() => {
+                                        //     window.scrollTo(0, 0);
+                                        // }, 100);
                                     }}
                                 >
                                     <div className="aspect-square bg-slate-100 overflow-hidden">
