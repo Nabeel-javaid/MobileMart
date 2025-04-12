@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useLayoutEffect } from 'react';
 import { useRoute, Link } from 'wouter';
 import { useQuery } from '@tanstack/react-query';
 import { motion, AnimatePresence } from 'framer-motion';
@@ -50,6 +50,11 @@ export default function ProductDetail() {
     // Reset quantity when product changes
     useEffect(() => {
         setQuantity(1);
+    }, [productId]);
+
+    // Scroll to top when product changes
+    useLayoutEffect(() => {
+        window.scrollTo(0, 0);
     }, [productId]);
 
     const incrementQuantity = () => setQuantity(prev => prev + 1);
@@ -365,9 +370,9 @@ export default function ProductDetail() {
                                 </div>
 
                                 {/* Action buttons */}
-                                <div className="flex flex-col sm:flex-row gap-3">
+                                <div className="flex items-center justify-center gap-3 mt-2">
                                     <motion.button
-                                        className="flex-1 bg-primary hover:bg-primary-dark text-white py-3 rounded-lg font-medium transition-colors flex items-center justify-center"
+                                        className="bg-primary hover:bg-primary-dark text-white py-3 px-12 rounded-lg font-medium transition-colors flex items-center justify-center max-w-xs"
                                         onClick={handleAddToCart}
                                         whileHover={{ scale: 1.02 }}
                                         whileTap={{ scale: 0.98 }}
@@ -375,20 +380,18 @@ export default function ProductDetail() {
                                         Add to Cart
                                     </motion.button>
 
-                                    <div className="flex gap-2">
-                                        <motion.button
-                                            className="bg-slate-100 hover:bg-slate-200 p-3 rounded-lg flex items-center justify-center relative group"
-                                            onClick={() => setShowComparison(true)}
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                            aria-label="Compare prices"
-                                        >
-                                            <BarChart2 className="h-6 w-6" />
-                                            <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
-                                                Compare prices
-                                            </div>
-                                        </motion.button>
-                                    </div>
+                                    <motion.button
+                                        className="bg-slate-100 hover:bg-slate-200 p-3 rounded-lg flex items-center justify-center relative group"
+                                        onClick={() => setShowComparison(true)}
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                        aria-label="Compare prices"
+                                    >
+                                        <BarChart2 className="h-6 w-6" />
+                                        <div className="absolute bottom-full mb-2 left-1/2 transform -translate-x-1/2 bg-slate-800 text-white text-xs rounded py-1 px-2 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none whitespace-nowrap">
+                                            Compare prices
+                                        </div>
+                                    </motion.button>
                                 </div>
                             </div>
                         </div>
@@ -641,12 +644,6 @@ export default function ProductDetail() {
                                 <motion.div
                                     className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow cursor-pointer"
                                     whileHover={{ y: -5 }}
-                                    onClick={() => {
-                                        // Force a page reload with the new product
-                                        // setTimeout(() => {
-                                        //     window.scrollTo(0, 0);
-                                        // }, 100);
-                                    }}
                                 >
                                     <div className="aspect-square bg-slate-100 overflow-hidden">
                                         <img
